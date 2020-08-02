@@ -1,6 +1,6 @@
 # firestore_icebox
 
-A new Flutter package.
+A package which makes Firestore be able to manage cache expiration.
 
 ## Getting Started
 
