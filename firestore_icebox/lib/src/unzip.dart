@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firestore_icebox.dart';
 
-String _generateKey(String path) => 'FirestoreIcebox-' + path;
+String _generateKey(String path) => 'FirestoreIcebox-$path';
 
 extension UnzipDocument on DocumentReference {
   Future<DocumentSnapshot> unzip() async {
@@ -14,12 +14,8 @@ extension UnzipDocument on DocumentReference {
       return _getFromServer(sharedPreferences);
     } else {
       DocumentSnapshot snap;
-
       snap = await _getFromCache();
-      if (snap == null) {
-        snap = await _getFromServer(sharedPreferences);
-      }
-      return snap;
+      return snap ?? await _getFromServer(sharedPreferences);
     }
   }
 
@@ -45,6 +41,7 @@ extension UnzipDocument on DocumentReference {
   Future<DocumentSnapshot> _getFromCache() {
     try {
       return get(source: Source.cache);
+      // ignore: avoid_catches_without_on_clauses
     } catch (_) {
       return null;
     }

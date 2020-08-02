@@ -1,4 +1,4 @@
-const _defaultExpiration = const Duration();
+const _defaultExpiration = Duration();
 
 class FirestoreIcebox {
   FirestoreIcebox._();
@@ -7,8 +7,10 @@ class FirestoreIcebox {
 
   Duration _cacheExpiration = _defaultExpiration;
   Duration get cacheExpiration => _cacheExpiration;
-
-  void setCacheExpiration(Duration expiration) {
+  set cacheExpiration(Duration expiration) {
+    if (expiration == null) {
+      return;
+    }
     _cacheExpiration = expiration;
   }
 }
