@@ -3,8 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firestore_cache_manager_configuration.dart';
 
-String _generateKey(String path) =>
-    'FirestoreCacheManager-lastRefreshedAt-$path';
+String _generateKey(String path) => 'FirestoreCacheManager-$path';
 
 class FirestoreCacheManager {
   const FirestoreCacheManager(this.sharedPreferences);
