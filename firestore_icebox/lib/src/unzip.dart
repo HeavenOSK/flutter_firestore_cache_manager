@@ -8,9 +8,9 @@ String _generateKey(String path) => 'FirestoreIcebox-$path';
 extension UnzipDocument on DocumentReference {
   Future<DocumentSnapshot> unzip() async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    final shouldFetch = _shouldGetFromServer(sharedPreferences);
+    final shouldGetFromServer = _shouldGetFromServer(sharedPreferences);
 
-    if (shouldFetch) {
+    if (shouldGetFromServer) {
       return _getFromServer(sharedPreferences);
     } else {
       DocumentSnapshot snap;
@@ -32,7 +32,6 @@ extension UnzipDocument on DocumentReference {
 
   Future<DocumentSnapshot> _getFromServer(SharedPreferences instance) async {
     final snap = await get();
-
     await instance.setString(
         _generateKey(path), DateTime.now().toIso8601String());
     return snap;
