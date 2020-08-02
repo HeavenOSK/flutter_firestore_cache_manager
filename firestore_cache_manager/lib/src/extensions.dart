@@ -7,10 +7,10 @@ extension FirestoreCacheManagerExtensions on DocumentReference {
   /// Read [DocumentSnapshot] from server with managing the cache on
   /// the [FirestoreCacheManager].
   Future<DocumentSnapshot> fetch() async {
-    final iceboxManager = FirestoreCacheManager(
+    final cacheManager = FirestoreCacheManager(
       await SharedPreferences.getInstance(),
     );
-    return _getFromServer(iceboxManager);
+    return _getFromServer(cacheManager);
   }
 
   /// Read [DocumentSnapshot] from cache first. If the cache have been expired,
@@ -18,26 +18,26 @@ extension FirestoreCacheManagerExtensions on DocumentReference {
   ///
   /// And also if no documents exists on cache, get document from server.
   Future<DocumentSnapshot> unzip() async {
-    final iceboxManager = FirestoreCacheManager(
+    final cacheManager = FirestoreCacheManager(
       await SharedPreferences.getInstance(),
     );
 
-    final shouldUpdate = iceboxManager.shouldUpdateCache(path);
+    final shouldRefresh = cacheManager.shouldRefresh(this);
 
-    if (shouldUpdate) {
-      return _getFromServer(iceboxManager);
+    if (shouldRefresh) {
+      return _getFromServer(cacheManager);
     } else {
       DocumentSnapshot snapshot;
       snapshot = await _getFromCache();
-      return snapshot ?? await _getFromServer(iceboxManager);
+      return snapshot ?? await _getFromServer(cacheManager);
     }
   }
 
   Future<DocumentSnapshot> _getFromServer(
-      FirestoreCacheManager iceboxManager) async {
+      FirestoreCacheManager cacheManager) async {
     final snapshot = await get();
     if (!snapshot.metadata.isFromCache) {
-      await iceboxManager.updateLastRefreshedAt(path);
+      await cacheManager.updateLastRefreshedAt(this);
     }
     return snapshot;
   }
