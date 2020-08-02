@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firestore_icebox.dart';
 
-String _generateKey(String path) => 'FirestoreIcebox-$path';
+String _generateKey(String path) => 'firestore_icebox-$path';
 
 extension UnzipDocument on DocumentReference {
   Future<DocumentSnapshot> unzip() async {
