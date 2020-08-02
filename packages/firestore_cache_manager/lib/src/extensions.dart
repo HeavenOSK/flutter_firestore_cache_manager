@@ -17,7 +17,7 @@ extension FirestoreCacheManagerExtensions on DocumentReference {
   /// get document from server.
   ///
   /// And also if no documents exists on cache, get document from server.
-  Future<DocumentSnapshot> unzip() async {
+  Future<DocumentSnapshot> read() async {
     final cacheManager = FirestoreCacheManager(
       await SharedPreferences.getInstance(),
     );
