@@ -1,5 +1,5 @@
 name: firestore_icebox
-description: A new Flutter package.
+description: A package which makes Firestore be able to manage cache expiration.
 version: 0.1.0
 author: Ryunosuke Watanabe
 homepage: https://github.com/HeavenOSK/flutter_firestore_icebox
